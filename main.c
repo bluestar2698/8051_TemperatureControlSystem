@@ -24,7 +24,7 @@ uchar code Array2[] = { 0xBf,0x86,0xdb,0xcf,0xe6,0xed,0xfd,0x87,0xff,0xef };
 uchar Buff[4];
 uchar ShowID = 1;
 
-int AlarmLow = 150;
+int AlarmLow = 150;`
 int AlarmHig = 300;
 
 void DelayMs(uint time)
@@ -89,7 +89,7 @@ int DS18B20_ReadTemp(void)
 	DS18B20_WriteByte(0xcc);
 	DS18B20_WriteByte(0x44);
 
-	DS18B20_ReSet();
+	AT89S52_ReSet();
 	DS18B20_WriteByte(0xcc);
 	DS18B20_WriteByte(0xbe);
 
@@ -137,21 +137,29 @@ void ShowTemp(int dat)
 
 void AlarmJudge(int dat)
 {
-	if(dat < AlarmLow)
+	if(dat<AlarmLow)
 	{
-		LedLow = 0;
-		LedHig = 1;
-		JdqLow = 0;
-		JdqHig = 1;
-		Buzzer = 0;
+		LedLow=0;					
+		LedHig=1;
+		JdqLow=0;
+		JdqHig=1;
+		Buzzer=0;
 	}
-	else if(dat > AlarmHig)
+	else if(dat>AlarmHig)
 	{
-		...;
+		LedLow=1;
+		LedHig=0;
+		JdqLow=1;
+		JdqHig=0;
+		Buzzer=0;
 	}
 	else
 	{
-		...
+		LedLow=1;
+		LedHig=1;
+		JdqLow=1;
+		JdqHig=1;
+		Buzzer=1;
 	}
 }
 
